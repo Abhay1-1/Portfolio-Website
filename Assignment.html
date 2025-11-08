@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhay Kumar | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+    <style>
+        body { background: #070707; }
+        .card {
+            background: #111;
+            border: 1px solid #222;
+            transition: 0.3s;
+        }
+        .card:hover {
+            border-color: #38bdf8;
+        }
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform .3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            
+            color: transparent;
+        }
+        .sphere-container {
+            width: 280px;
+            height: 280px;
+        }
+        canvas { width: 100% !important; height: 100% !important; }
+    </style>
+</head>
+
+<body class="text-gray-200">
+<!-- Overlay -->
+<div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+<div class="max-w-3xl mx-auto px-4 py-8">
+
+    
+
+        
+
+
+    <!-- Assignment section for HCI GUI Design and Aesthetics -->
+<section id="assignment" class="mb-12">
+<h3 class="text-2xl font-medium mb-6">Assignment 1 — GUI Design & Aesthetics (HCI)</h3>
+
+
+<div class="card p-6 rounded-lg mb-6">
+<h4 class="text-lg font-semibold mb-2">Subject: HCI (Human-Computer Interaction)</h4>
+<p class="text-gray-400 mb-4">This web-portal is designed to demonstrate GUI requirements, visual design principles, and layout proportioning (including the rule of thirds). Below are the required components explained with examples and anchors to relevant parts of the page.</p>
+
+
+<h5 class="text-sky-400 mt-4">1. Requirements of a GUI</h5>
+<ul class="list-disc pl-6 text-gray-400 mt-2">
+<li><strong>Functional Requirement:</strong> A functional GUI should support smooth interaction and allow users to perform tasks efficiently without confusion. <br>
+In the portfolio, the navigation bar, profile sections, and interactive 3D globe are clearly structured and easy to locate. The menu is responsive, meaning it adapts to different screen sizes (desktop & mobile) without losing usability. Buttons, icons, and section labels are designed to be intuitive, enabling users to understand what to do without needing instructions.</li>
+<li><strong>Aesthetic Requirement:</strong> Aesthetics refers to how visually pleasing the interface appears. <br>
+The portfolio uses:
+<br>
+--A consistent dark theme to reduce visual strain.
+<br>
+--A limited and harmonious color palette.
+<br>
+--Smooth typography with balanced spacing.
+<br>
+--Clean sections with breathing space to avoid clutter.
+<br>
+The visual appeal encourages users to explore the page longer, making the experience comfortable and inviting.</li>
+<li><strong>Communicable Requirement:</strong> Communicability focuses on how effectively the interface communicates information to the user.
+<br>
+    In the portfolio:
+<br>
+--Headings and labels clearly describe each section.
+<br>
+--Visual hierarchy (size, weight, spacing) guides user attention naturally.
+<br>
+--The globe animation and introductory text immediately communicate theme and identity.
+<br>
+The navigation menu clearly tells users where each section leads.
+
+Overall, the interface speaks to the user clearly and confidently.</li>
+</ul>
+
+
+<h5 class="text-sky-400 mt-4">2. Principles of design in Visuals</h5>
+<ol class="list-decimal pl-6 text-gray-400 mt-2">
+<li><strong>Contrast & Hierarchy:</strong> Use size, weight and color to prioritise information (headline & subhead example in hero).</li>
+<li><strong>Alignment & Proximity:</strong> Group related controls and content (tech icons grid, experience cards).</li>
+<li><strong>Consistency:</strong> Reuse visual patterns and spacing to reduce cognitive load.</li>
+<li><strong>Affordance & Feedback:</strong> Buttons and links show hover/focus states; the globe control gives immediate visual response.</li>
+</ol>
+
+
+<h5 class="text-sky-400 mt-4">3. Proportion & Rule of Thirds</h5>
+<p class="text-gray-400">The Rule of Thirds divides the screen into a 3x3 grid. <br>
+Placing key elements along these lines increases visual harmony and draws attention to important content.
+<br>
+In the portfolio:
+<br>
+The hero section (intro text + rotating globe) is positioned so that the text sits near the left-third vertical line, while the globe occupies the right side.
+<br>
+This creates visual balance, making the page appear naturally structured rather than crowded or centered awkwardly.
+<br>
+The spacing between sections follows proportional scaling, ensuring that no section appears too compressed or too empty.
+<br>
+This use of proportion guides the user's eye smoothly from one section to another, improving readability and engagement.</p>
+
+<h5 class="text-sky-400 mt-4">4. Result</h5>
+<p class="text-gray-400 mt-4">The portfolio successfully incorporates HCI principles by ensuring the GUI is:
+<br>
+-Functional (easy to use),
+<br>
+-Aesthetic (visually appealing), and
+<br>
+-Communicable (clear and meaningful),
+<br>
+while also maintaining proper design principles and screen composition techniques that enhance user experience.</p>
+</div>
+</section>
+
+<!-- Scripts -->
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const closeBtn = document.getElementById("closeBtn");
+const menuOverlay = document.getElementById("menuOverlay");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuBtn.onclick = () => { mobileMenu.classList.add("open"); menuOverlay.classList.remove("hidden"); };
+closeBtn.onclick = () => { mobileMenu.classList.remove("open"); menuOverlay.classList.add("hidden"); };
+menuOverlay.onclick = () => { mobileMenu.classList.remove("open"); menuOverlay.classList.add("hidden"); };
+
+// Minimal 3D Sphere
+const canvas = document.getElementById("globe");
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+const geometry = new THREE.SphereGeometry(1, 32, 32);
+const material = new THREE.MeshBasicMaterial({ wireframe: true, color: "#38bdf8" });
+const sphere = new THREE.Mesh(geometry, material);
+scene.add(sphere);
+
+camera.position.z = 3;
+(function animate() {
+    requestAnimationFrame(animate);
+    sphere.rotation.y += 0.003;
+    renderer.render(scene, camera);
+})();
+</script>
+
+</body>
+</html>
